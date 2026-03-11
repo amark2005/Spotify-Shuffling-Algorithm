@@ -56,20 +56,20 @@ return 0;
 
 int main(){
   loadsong();
-  
+
 
   int wid=500;
   int heig=300;
-  int centwid=wid/2;
-  int centhei=heig/2;
+  float centwid=wid/2.0f;
+  float centhei=heig/2.0f;
   InitWindow(wid,heig,"Shuffle");
 
   while(!WindowShouldClose()){
     BeginDrawing();
     ClearBackground(BLACK);
-
-    GuiButton((Rectangle){100,100,100,40}, "Next Song");
-    GuiButton((Rectangle){200,100,100,40},"Previous Song");
+    DrawText("Now Playing",centwid,35,12,WHITE);
+    GuiButton((Rectangle){centwid+50,100,100,40}, "Next Song");
+    GuiButton((Rectangle){centwid-50,100,100,40},"Previous Song");
     EndDrawing();
   }
   CloseWindow();
