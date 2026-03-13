@@ -1,5 +1,5 @@
 # Spotify Shuffling Algorithm
-![alt text](image.png)
+![alt text](image.png) <br>
 A C++ Raylib Music Player **Replica** that uses a **Spotify-style weighted Shuffling Algorithm**. <br>
 At present its just a UI and shuffle-logic, not a full fledged music player. Maybe in Distant Future It might get developed into a **Fully Fledged Music Player with Spotify-Style Shuffling Algorithm**.
 <br><br>
