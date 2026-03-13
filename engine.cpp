@@ -24,6 +24,8 @@ struct Song {
 };
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Song,song_name,song_id,artist_name,artist_id,duration_ms,play_count,skip_count,liked,weight_score);
 Song songdata[SONGCOUNT];
+int playlist[SONGCOUNT];
+
 int loadsong(){
   std::ifstream file("song.json");
   if(!file.is_open()){
@@ -50,27 +52,41 @@ int loadsong(){
     songcountloader=count;
 return 0;
 }
-
+void compute_weigh(){
+  cout<<"Computing Weight... \n";
+  for(int i=0;i<songcountloader;i++){
+    Song& s=songdata[i];
+    s.weight_score=1.0+s.play_count+(s.liked?5.0:1.0)-(s.skip_count*2.0);
+    if(s.weight_score<0.1)s.weight_score=0.1;
+  }
+  
+  //TODO: need work here
+}
 
 
 
 int main(){
   loadsong();
-  cout<<"Total Number of Songs Loaded: "<<songcountloader;
+  cout<<"Total Number of Songs Loaded: "<<songcountloader<<"\n";
+  for(int i=0;i<songcountloader;i++){
+  playlist[i]=i;
+}
   int wid=500;
   int heig=300;
-  float centwid=wid/2.0f;
-  float centhei=heig/2.0f;
-  int musiccount=1;
+  int centwid=wid/2;
+  int centhei=heig/2;
+  int musiccount=0;
   InitWindow(wid,heig,"Shuffle");
 
   while(!WindowShouldClose()){
     BeginDrawing();
     ClearBackground(BLACK);
+    Rectangle nextBtn = { centwid + 50.0f, 100.0f, 100.0f, 40.0f };
+    Rectangle prevBtn = { centwid - 50.0f, 100.0f, 100.0f, 40.0f };
     DrawText("Now Playing",centwid,35,12,WHITE);
-    if (GuiButton((Rectangle){centwid+50,100,100,40}, "Next Song")) musiccount++;
-    if(GuiButton((Rectangle){centwid-50,100,100,40},"Previous Song")) musiccount--;
-    DrawText(songdata[musiccount].song_name.c_str(),centwid,60,18,WHITE);
+    if (GuiButton((Rectangle)nextBtn, "Next Song")){ musiccount++;if (musiccount >= songcountloader) musiccount = 0;}
+    if(GuiButton((Rectangle)prevBtn,"Previous Song")){ musiccount--;if (musiccount < 0) musiccount = songcountloader - 1;}
+    DrawText(songdata[playlist[musiccount]].song_name.c_str(),centwid,60,18,WHITE);
     
     
     EndDrawing();
