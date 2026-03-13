@@ -28,3 +28,5 @@ For Windows: Modify `Makefile` for NT Kernel and Run `make`
 - Fixed width types (int32_t)
 - static const instead of #define for constants
 ---
+## Performance
+`./engine  0.32s user 0.10s system 80% cpu 0.524 total`
