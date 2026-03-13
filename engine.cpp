@@ -5,7 +5,7 @@
 #include <iostream>
 #include<nlohmann/json.hpp>
 #include <array>
-#define SONGCOUNT 48
+#define SONGCOUNT 26
 using std::array;
 using std::cout;
 using std::string;
@@ -56,20 +56,23 @@ return 0;
 
 int main(){
   loadsong();
-
-
+  cout<<"Total Number of Songs Loaded: "<<songcountloader;
   int wid=500;
   int heig=300;
   float centwid=wid/2.0f;
   float centhei=heig/2.0f;
+  int musiccount=1;
   InitWindow(wid,heig,"Shuffle");
 
   while(!WindowShouldClose()){
     BeginDrawing();
     ClearBackground(BLACK);
     DrawText("Now Playing",centwid,35,12,WHITE);
-    GuiButton((Rectangle){centwid+50,100,100,40}, "Next Song");
-    GuiButton((Rectangle){centwid-50,100,100,40},"Previous Song");
+    if (GuiButton((Rectangle){centwid+50,100,100,40}, "Next Song")) musiccount++;
+    if(GuiButton((Rectangle){centwid-50,100,100,40},"Previous Song")) musiccount--;
+    DrawText(songdata[musiccount].song_name.c_str(),centwid,60,18,WHITE);
+    
+    
     EndDrawing();
   }
   CloseWindow();
