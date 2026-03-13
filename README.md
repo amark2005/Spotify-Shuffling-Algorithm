@@ -4,7 +4,7 @@ A C++ Raylib Music Player **Replica** that uses a **Spotify-style weighted Shuff
 At present its just a UI and shuffle-logic, not a full fledged music player. Maybe in Distant Future It might get developed into a **Fully Fledged Music Player with Spotify-Style Shuffling Algorithm**.
 <br><br>
 The songs are already hardcoded into `song.json`.
-## Note: This Application is Coded under **JSF AV C++ Standards.** 
+## Note: This Application follows **JSF AV C++ Standards** for safety-critical software. 
 
 ## Features
 - Shuffle Button that shuffles according to your likings
